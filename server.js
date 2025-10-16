@@ -109,10 +109,7 @@ Product name: ${productName}`,
 }
 
 // ========== 5) Mongo Client init ==========
-const client = new MongoClient(mongoUri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+let client;
 
 // ========== 6) Main fetchAndStore function ==========
 /**
@@ -581,6 +578,11 @@ async function startServer() {
     );
     process.exit(1);
   }
+
+  client = new MongoClient(mongoUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
   try {
     await client.connect();
