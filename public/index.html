@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manovino Data Fetcher</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
+        .container {
+            text-align: center;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        button:active {
+            background-color: #004494;
+            transform: translateY(0);
+        }
+        #status {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Manovino Data Fetch Control</h1>
+        <button id="fetchButton">Start Manual Fetch</button>
+        <p id="status">Click the button to start the data fetch process.</p>
+    </div>
+
+    <script>
+        document.getElementById('fetchButton').addEventListener('click', () => {
+            const button = document.getElementById('fetchButton');
+            const status = document.getElementById('status');
+
+            button.disabled = true;
+            button.textContent = 'Fetching...';
+            status.textContent = 'Data fetch in progress. This might take a few minutes. Please wait...';
+
+            fetch('/fetch-mood-items')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    status.textContent = `Fetch successful! Message: ${data.message}`;
+                })
+                .catch(error => {
+                    status.textContent = `Fetch failed: ${error.message}`;
+                    console.error('Fetch error:', error);
+                })
+                .finally(() => {
+                    button.disabled = false;
+                    button.textContent = 'Start Manual Fetch';
+                });
+        });
+    </script>
+</body>
+</html>

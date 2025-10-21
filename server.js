@@ -16,6 +16,7 @@ const cron = require('node-cron');
 
 // ========== 0) Basic Express Setup ==========
 const app = express();
+app.use(express.static('public')); // Serve static files from the 'public' directory
 app.use(express.json());
 const PORT = Number(process.env.PORT) || 3030; // allow override via env
 
