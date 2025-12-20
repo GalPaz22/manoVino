@@ -89,7 +89,7 @@ async function classifyCategoryUsingGPT(translatedDescription, productName) {
         {
           role: 'user',
           content: `Based on the following description, determine which category it belongs to from the list:
-"יין לבן, יין אדום, יין רוזה, יין מבעבע, ליקר, וויסקי, וודקה, טקילה, מזקל, קוניאק, בירה, קוקטייל, רום, גין, סאקה, אפריטיף, דג׳יסטיף, ביטר, מארז".
+"יין לבן, יין אדום, יין רוזה, יין מבעבע, ליקר, וויסקי, וודקה, טקילה, מזקל, קוניאק, בירה, קוקטייל, רום, גין, סאקה, אפריטיף, דג׳יסטיף, ביטר, מארז, גלויה".
 Answer ONLY with the category name, nothing else! If none fit, return "None" (exactly).
 
 Description: ${translatedDescription}
@@ -178,11 +178,12 @@ const fetchAndStoreData = async () => {
       'דג׳יסטיף',
       'קוקטייל',
       'מארז',
-      'ליקר', 
+      'ליקר',
       'סיידר',
       'ארגז',
       'מזקל',
       'מארז',
+      'גלויה',
     ];
     const categoryRegex = new RegExp(`(${categoriesWanted.join('|')})`, 'g');
 
